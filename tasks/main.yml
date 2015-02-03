@@ -19,5 +19,5 @@
   sudo: yes
 
 - name: install tmux 1.9
-  apt: name=tmux state=present
+  apt: name="tmux=1.9a-1~ppa1~{{ ansible_distribution_release | regex_replace('^(.).*$', '\\1') }}" state=present
   sudo: yes
