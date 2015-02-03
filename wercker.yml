@@ -1,0 +1,19 @@
+box: soh335/serverspec-ansible@0.0.1
+build:
+  steps:
+    - script:
+        name: apt-get update
+        code: sudo apt-get update
+
+    - script:
+        name: ansible-playbook
+        code: |
+          cd $WERCKER_SOURCE_DIR
+          sudo ansible-playbook -v tests/site.yml -i tests/inventory.ini -c local
+
+    - script:
+        name: rake spec
+        code: |
+          cd $WERCKER_SOURCE_DIR/tests
+          rake spec
+

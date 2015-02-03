@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  roles:
+    - tmux1.9

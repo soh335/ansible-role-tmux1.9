@@ -1,0 +1,23 @@
+---
+# http://stackoverflow.com/questions/25940944/ugrade-tmux-from-1-8-to-1-9-on-ubuntu-14-04
+
+- name: install python-software-properties, software-properties-common
+  apt: name={{ item }} state=present
+  sudo: yes
+  with_items:
+    - python-software-properties
+    - software-properties-common
+
+- name: add apt repository ppa:pi-rho/dev
+  apt_repository: repo=ppa:pi-rho/dev state=present
+  register: add_pi_rho_dev_apt_repository
+  sudo: yes
+
+- name: apt-get update
+  apt: update_cache=yes
+  when: add_pi_rho_dev_apt_repository.changed
+  sudo: yes
+
+- name: install tmux 1.9
+  apt: name=tmux state=present
+  sudo: yes
